@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>EMRocket</title>
+  <meta name="description" content="EMotorad sales check-in">
+  <meta name="theme-color" content="#171717">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="EMRocket">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    // The real app (Google Apps Script). Opened straight away when launched from the home-screen icon.
+    var APP_URL = 'https://script.google.com/a/macros/emotorad.com/s/AKfycbyoLFPTrFFEsgZafZFaY6TzAfPfE7Pstic_171kuDbEaG1heEFWT7HRp3Azwj2UCfji/exec';
+    var LAUNCHED_AS_APP = /[?&]source=app\b/.test(location.search) ||
+      (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+    if (LAUNCHED_AS_APP) location.replace(APP_URL);
+  </script>
+  <style>
+    :root { --bg: #171717; --text: #fff; --muted: #cecece; --accent: #ff6b2b; --card: #222; --line: #333; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
+           font-family: Figtree, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+           display: flex; align-items: center; justify-content: center; padding: 24px 16px; }
+    main { width: 100%; max-width: 420px; text-align: center; }
+    .logo { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 8px 30px rgba(255,107,43,.25); }
+    h1 { font-size: 34px; font-weight: 800; margin: 18px 0 4px; letter-spacing: -.01em; }
+    h1 span { color: var(--accent); }
+    .sub { color: var(--muted); margin: 0 0 28px; }
+    .btn { display: block; width: 100%; border: 0; border-radius: 999px; padding: 17px; font-size: 18px; font-weight: 700;
+           font-family: inherit; cursor: pointer; text-decoration: none; margin-top: 12px; }
+    .primary { background: var(--accent); color: #fff; }
+    .secondary { background: transparent; color: #fff; border: 1.5px solid #555; }
+    .steps { text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+             padding: 14px 18px 14px 38px; margin: 18px 0 0; line-height: 1.6; }
+    .steps b { color: #fff; }
+    .note { color: #999; font-size: 13px; margin-top: 22px; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="logo" src="icon-192.png" alt="EMRocket">
+    <h1>EM<span>Rocket</span></h1>
+    <p class="sub">EMotorad sales check-in</p>
+
+    <!-- Android / desktop Chrome: real install prompt -->
+    <button id="installBtn" class="btn primary hidden" type="button">Install EMRocket</button>
+    <div id="installed" class="steps hidden">✅ EMRocket is installed. Open it from your home screen.</div>
+
+    <!-- iPhone: Apple only allows Share → Add to Home Screen -->
+    <ol id="iosSteps" class="steps hidden">
+      <li>Make sure this page is open in <b>Safari</b>.</li>
+      <li>Tap <b>Share</b> ⬆︎ at the bottom of the screen.</li>
+      <li>Tap <b>Add to Home Screen</b>, then <b>Add</b>.</li>
+    </ol>
+
+    <!-- Android without the prompt (e.g. opened inside WhatsApp) -->
+    <ol id="androidSteps" class="steps hidden">
+      <li>Open this page in <b>Chrome</b> (in WhatsApp: ⋮ → <b>Open in Chrome</b>).</li>
+      <li>Tap <b>⋮</b> → <b>Install app</b> (or <b>Add to Home screen</b> → <b>Install</b>).</li>
+    </ol>
+
+    <a id="openBtn" class="btn secondary" href="#">Open EMRocket</a>
+    <p class="note">Sign in with your EMotorad Google account when asked.</p>
+  </main>
+
+<script>
+  document.getElementById('openBtn').href = APP_URL;
+
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
+
+  var ua = navigator.userAgent;
+  var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var show = function (id, on) { document.getElementById(id).classList.toggle('hidden', !on); };
+
+  if (isIOS) show('iosSteps', true);
+  else if (isAndroid) show('androidSteps', true); // replaced by the Install button if Chrome offers it
+
+  // Chrome fires this when the app can be installed: show our own big Install button
+  var deferred = null;
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    deferred = e;
+    show('installBtn', true);
+    show('androidSteps', false);
+  });
+  document.getElementById('installBtn').addEventListener('click', function () {
+    if (!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.then(function () { deferred = null; show('installBtn', false); });
+  });
+  window.addEventListener('appinstalled', function () {
+    show('installBtn', false); show('androidSteps', false); show('installed', true);
+  });
+</script>
+</body>
+</html>
