@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script>
     // The real app (Google Apps Script). Opened straight away when launched from the home-screen icon.
-    var APP_URL = 'https://script.google.com/a/macros/emotorad.com/s/AKfycbyoLFPTrFFEsgZafZFaY6TzAfPfE7Pstic_171kuDbEaG1heEFWT7HRp3Azwj2UCfji/exec';
+    var APP_URL = 'https://script.google.com/macros/s/AKfycbyoLFPTrFFEsgZafZFaY6TzAfPfE7Pstic_171kuDbEaG1heEFWT7HRp3Azwj2UCfji/exec';
     var LAUNCHED_AS_APP = /[?&]source=app\b/.test(location.search) ||
       (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
     if (LAUNCHED_AS_APP) location.replace(APP_URL);
@@ -50,6 +50,18 @@
     <h1>EM<span>Rocket</span></h1>
     <p class="sub">EMotorad sales check-in</p>
 
+    <!-- Android: the EMRocket app (APK) -->
+    <div id="apkBox" class="hidden">
+      <a class="btn primary" href="EMRocket.apk" download="EMRocket.apk">⬇ Download Android app (APK)</a>
+      <ol class="steps">
+        <li>Tap <b>Download</b> above, then open <b>EMRocket.apk</b> from the notification or Downloads.</li>
+        <li>If asked, allow <b>Install unknown apps</b> for Chrome (or Files), then tap <b>Install</b>.</li>
+        <li>If Play Protect warns, tap <b>More details → Install anyway</b> — it is EMotorad's own app, not from the Play Store.</li>
+        <li>Open <b>EMRocket</b>, log in, and tap <b>Allow</b> when it asks for location.</li>
+      </ol>
+      <p class="note" style="margin-top:10px">Prefer not to install a file? Use the option below instead.</p>
+    </div>
+
     <!-- Android / desktop Chrome: real install prompt -->
     <button id="installBtn" class="btn primary hidden" type="button">Install EMRocket</button>
     <div id="installed" class="steps hidden">✅ EMRocket is installed. Open it from your home screen.</div>
@@ -68,7 +80,7 @@
     </ol>
 
     <a id="openBtn" class="btn secondary" href="#">Open EMRocket</a>
-    <p class="note">Sign in with your EMotorad Google account when asked.</p>
+    <p class="note">Log in with your EMRocket email and password (new here? tap <b>Create account</b> — your manager approves it).</p>
   </main>
 
 <script>
@@ -82,7 +94,7 @@
   var show = function (id, on) { document.getElementById(id).classList.toggle('hidden', !on); };
 
   if (isIOS) show('iosSteps', true);
-  else if (isAndroid) show('androidSteps', true); // replaced by the Install button if Chrome offers it
+  else if (isAndroid) { show('apkBox', true); show('androidSteps', true); } // steps replaced by the Install button if Chrome offers it
 
   // Chrome fires this when the app can be installed: show our own big Install button
   var deferred = null;
