@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>EMRocket</title>
+  <title>EM X</title>
   <meta name="description" content="EMotorad sales check-in">
-  <meta name="theme-color" content="#171717">
+  <meta name="theme-color" content="#1e4b8f">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="EMRocket">
+  <meta name="apple-mobile-web-app-title" content="EM X">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -23,48 +23,48 @@
     if (LAUNCHED_AS_APP) location.replace(APP_URL);
   </script>
   <style>
-    :root { --bg: #171717; --text: #fff; --muted: #cecece; --accent: #ff6b2b; --card: #222; --line: #333; }
+    :root { --bg: #f6f8fb; --text: #1a3466; --muted: #64748b; --accent: #059669; --card: #fff; --line: #e8edf3; }
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
            font-family: Figtree, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
            display: flex; align-items: center; justify-content: center; padding: 24px 16px; }
     main { width: 100%; max-width: 420px; text-align: center; }
-    .logo { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 8px 30px rgba(255,107,43,.25); }
+    .logo { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 8px 30px rgba(16,185,129,.28); }
     h1 { font-size: 34px; font-weight: 800; margin: 18px 0 4px; letter-spacing: -.01em; }
     h1 span { color: var(--accent); }
     .sub { color: var(--muted); margin: 0 0 28px; }
     .btn { display: block; width: 100%; border: 0; border-radius: 999px; padding: 17px; font-size: 18px; font-weight: 700;
            font-family: inherit; cursor: pointer; text-decoration: none; margin-top: 12px; }
     .primary { background: var(--accent); color: #fff; }
-    .secondary { background: transparent; color: #fff; border: 1.5px solid #555; }
+    .secondary { background: #fff; color: var(--text); border: 1.5px solid #cbd5e1; }
     .steps { text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 16px;
              padding: 14px 18px 14px 38px; margin: 18px 0 0; line-height: 1.6; }
-    .steps b { color: #fff; }
-    .note { color: #999; font-size: 13px; margin-top: 22px; }
+    .steps b { color: var(--text); }
+    .note { color: var(--muted); font-size: 13px; margin-top: 22px; }
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
   <main>
-    <img class="logo" src="icon-192.png" alt="EMRocket">
-    <h1>EM<span>Rocket</span></h1>
+    <img class="logo" src="icon-192.png" alt="EM X">
+    <h1>EM <span>X</span></h1>
     <p class="sub">EMotorad sales check-in</p>
 
-    <!-- Android: the EMRocket app (APK) -->
+    <!-- Android: the EM X app (APK) -->
     <div id="apkBox" class="hidden">
-      <a class="btn primary" href="EMRocket.apk?v=3" download="EMRocket.apk">⬇ Download Android app (APK)</a>
+      <a class="btn primary" href="EMRocket.apk?v=4" download="EMX.apk">⬇ Download Android app (APK)</a>
       <ol class="steps">
-        <li>Tap <b>Download</b> above, then open <b>EMRocket.apk</b> from the notification or Downloads.</li>
+        <li>Tap <b>Download</b> above, then open <b>EMX.apk</b> from the notification or Downloads.</li>
         <li>If asked, allow <b>Install unknown apps</b> for Chrome (or Files), then tap <b>Install</b>.</li>
         <li>If Play Protect warns, tap <b>More details → Install anyway</b> — it is EMotorad's own app, not from the Play Store.</li>
-        <li>Open <b>EMRocket</b>, log in, and tap <b>Allow</b> when it asks for location.</li>
+        <li>Open <b>EM X</b>, log in, and tap <b>Allow</b> when it asks for location.</li>
       </ol>
       <p class="note" style="margin-top:10px">Prefer not to install a file? Use the option below instead.</p>
     </div>
 
     <!-- Android / desktop Chrome: real install prompt -->
-    <button id="installBtn" class="btn primary hidden" type="button">Install EMRocket</button>
-    <div id="installed" class="steps hidden">✅ EMRocket is installed. Open it from your home screen.</div>
+    <button id="installBtn" class="btn primary hidden" type="button">Install EM X</button>
+    <div id="installed" class="steps hidden">✅ EM X is installed. Open it from your home screen.</div>
 
     <!-- iPhone: Apple only allows Share → Add to Home Screen -->
     <ol id="iosSteps" class="steps hidden">
@@ -79,8 +79,8 @@
       <li>Tap <b>⋮</b> → <b>Install app</b> (or <b>Add to Home screen</b> → <b>Install</b>).</li>
     </ol>
 
-    <a id="openBtn" class="btn secondary" href="#">Open EMRocket</a>
-    <p class="note">Log in with your EMRocket email and password (new here? tap <b>Create account</b> — your manager approves it).</p>
+    <a id="openBtn" class="btn secondary" href="#">Open EM X</a>
+    <p class="note">Log in with your EM X email and password (new here? tap <b>Create account</b> — your manager approves it).</p>
   </main>
 
 <script>
